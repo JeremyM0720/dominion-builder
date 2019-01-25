@@ -12,10 +12,16 @@ class Action extends React.Component {
 	render() {
 		return(
 			<div className="actions">
-				<span className="card-count">Cards: 10</span>
+				<span className="card-count">Cards: {this.props.cards.length}</span>
 				<button className="button-action delete" onClick={ () => this.props.removePreset(this.props.id) }> ✖ </button>
 			</div>
 		);
+	}
+}
+
+class Cards extends React.Component {
+	render() {
+
 	}
 }
 
@@ -44,9 +50,12 @@ class Preset extends React.Component {
 			    <Action 
 			    	id={this.props.id}
             removePreset={this.props.removePreset}
+            cards={this.props.cards}
 			    />
 
-			    <div className="preset-details">test</div>
+			    <div className="preset-details">
+			    	
+			    </div>
 			</div> 
 		);
 	}
@@ -68,7 +77,7 @@ class App extends React.Component {
 	    {
 	      "id": 3,
 	      "name": "Give and Take",
-	      "cards": [1, 3]
+	      "cards": [1, 2, 3]
 	    }
 	  ],
 	  "cards": [
@@ -105,12 +114,14 @@ class App extends React.Component {
        				title="Domininion Preset Builder" 
        				numberOfPresets={this.state.presets.length}
        			/>
+
        			{
 		          this.state.presets.map( preset =>
 		            <Preset 
 		              id={preset.id}
 		              key={preset.id.toString()}
 		              name={preset.name} 
+		              cards={preset.cards}
 		              removePreset={this.handleRemovePreset}
 		            />
 		          )
