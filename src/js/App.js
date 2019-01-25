@@ -22,8 +22,8 @@ class Action extends React.Component {
 class Preset extends React.Component {
 	render() {
 		return(
-			<div className="player">
-			    <span className="player-name">
+			<div className="preset">
+			    <span className="preset-name">
 			    	{this.props.presetName}
 			    </span> 
 
