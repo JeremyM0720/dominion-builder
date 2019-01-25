@@ -20,10 +20,24 @@ class Action extends React.Component {
 }
 
 class Preset extends React.Component {
+	state = {
+		isShown: false,
+	}
+
+	toggleAccordion = () => {
+		this.setState( prevState => {
+			return {
+				isShown: !prevState.isShown
+			};
+		});
+	}
+
 	render() {
+		const show = this.state.isShown ? 'show' : '';
+
 		return(
-			<div className="preset">
-			    <span className="preset-name">
+			<div className={`preset ${show}`}>
+			    <span className="preset-name" onClick={this.toggleAccordion}>
 			    	{this.props.name}
 			    </span> 
 
@@ -31,6 +45,8 @@ class Preset extends React.Component {
 			    	id={this.props.id}
             removePreset={this.props.removePreset}
 			    />
+
+			    <div className="preset-details">test</div>
 			</div> 
 		);
 	}
@@ -80,7 +96,6 @@ class App extends React.Component {
         presets: prevState.presets.filter( preset => preset.id !== id ),
       };
     });
-
   }
 
 	render() {

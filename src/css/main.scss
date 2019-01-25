@@ -5,6 +5,7 @@
 body {
   background: #e8e7e7; 
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 header {
@@ -115,6 +116,7 @@ svg {
   font-size: 1.2em;
   border-bottom: solid 2px #EEEEEE;
   letter-spacing: 2px;
+  flex-flow: row wrap;
 }
 
   .preset:last-of-type {
@@ -134,6 +136,7 @@ svg {
     flex-grow: 1;
     line-height: 3.5em;
     padding-left: 10px;
+    cursor: pointer;
   }
 
   .remove-preset {
@@ -148,10 +151,29 @@ svg {
     background: none;
   }
 
+.preset-details {
+  flex-basis: 100%;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: .3s;
+  padding: 0 20px;
+  background-color: #e1eafb;
+  border-right: 1px solid #cfcfcf;  
+  border-left: 10px solid #7189b9;  
+}
+
+  .preset.show {
+    .preset-details {
+      padding: 20px;  
+      max-height: none;
+    }
+  }
 
 .stats {
   margin: 0 0 0 28px;
   font-weight: normal;
+  width: 170px;
 }
 
   .stats td:first-child {
