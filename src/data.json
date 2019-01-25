@@ -1,0 +1,36 @@
+{
+  "presets": [
+    {
+      "id": 1,
+      "name": "Grand Scheme",
+      "cards": [1, 2]
+    },
+    {
+      "id": 2,
+      "name": "Deconstrution",
+      "cards": [2, 3]
+    },
+    {
+      "id": 2,
+      "name": "Give and Take",
+      "cards": [1, 3]
+    }
+  ],
+  "cards": [
+    {
+      "id": 1,
+      "name": "Festival",
+      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+    },
+    {
+      "id": 2,
+      "name": "Witch",
+      "description": "Nunc dignissim risus id metus."
+    },
+    {
+      "id": 3,
+      "name": "Militia",
+      "description": "Integer vitae libero ac risus egestas placerat."
+    }
+  ]
+}
