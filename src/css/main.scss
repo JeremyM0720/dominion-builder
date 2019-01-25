@@ -38,27 +38,30 @@ form {
 }
 
 input[type=text] {
+  font-size: 1.5em;
+  color: #dcdcdc;
   flex-grow: 1;
   border-width: 0 0 1px 0;
-  margin: 15px 10px 15px 15px;
+  margin: 15px 0 15px 15px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #5B45B9;
+  background-color: #28a745;
   border-style: none;
   text-shadow: none;
-  text-transform: uppercase;
-  color: #C7BCF8;
   letter-spacing: 2px;
   outline: none;
+  transition: .4s;
 }
 
 input[type=text]::-webkit-input-placeholder{
-  color: #C7BCF8;
+  color: #fff;
   letter-spacing: 2px;
 }
 
+input[type=text]:hover,
 input[type=text]:focus{
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #28a745;
+  color: #fff;
 }
 
 input[type=submit] {
@@ -130,6 +133,16 @@ svg {
     visibility: visible;
   }
 
+  .preset-add {
+    padding: 0;
+
+    .add {
+      margin: 15px;
+      background-color: #28a745;
+      color: #fff;
+    }
+  }
+
   .preset-name,
   .card-count {
     color: #2F2366;
@@ -147,7 +160,7 @@ svg {
     border: none;
     outline: none;
     visibility: hidden;
-    color: #EF5350;
+    color: #dc3545;
     cursor: pointer;
     margin: 0 10px 0 0;
     padding: 0;
@@ -241,9 +254,13 @@ svg {
     color: #B0AEBA;
     background-color: #DCDCDC;
     display: block;
-    padding: 20px 20px;
+    padding: 20px;
     cursor: pointer;
     outline: none;
+  }
+
+  .button-action.button-full {
+    width: 100%;
   }
 
   .button-action:hover {
@@ -251,7 +268,11 @@ svg {
   }
 
   .delete:hover {
-    background: #EF5350;
+    background-color: #dc3545;
+  }
+
+  .add:hover {
+    background-color: #28a745;
   }
 
   .card-count {

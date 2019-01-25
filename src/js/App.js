@@ -59,7 +59,7 @@ class Preset extends React.Component {
 class App extends React.Component {
 	state = database;
 
-	handleRemovePreset = (id) => {
+	handleRemovePreset = id => {
     this.setState( prevState => {
       return {
         presets: prevState.presets.filter( preset => preset.id !== id ),
@@ -75,26 +75,32 @@ class App extends React.Component {
        				numberOfPresets={this.state.presets.length}
        			/>
 
-       			{
-		          this.state.presets.map( preset => 
-		          	{
-		          		let presetCardsList = [];
-	          			preset.cards.map( cardNumber => {
-	          				presetCardsList.push(this.state.cards.find(card => card.id === cardNumber));
-	          			});
+       			<div className="preset-list">
+	       			{
+			          this.state.presets.map( preset => 
+			          	{
+			          		let presetCardsList = [];
+		          			preset.cards.map( cardNumber => {
+		          				presetCardsList.push(this.state.cards.find(card => card.id === cardNumber));
+		          			});
 
-		          		return (
-			            	<Preset 
-			             		id={preset.id}
-			             		key={preset.id.toString()}
-			             		name={preset.name} 
-			             		removePreset={this.handleRemovePreset}
-			              	presetCardsList={presetCardsList}
-			           		/>
-			            );
-		          	}
-		          )
-		        }  
+			          		return (
+				            	<Preset 
+				             		id={preset.id}
+				             		key={preset.id.toString()}
+				             		name={preset.name} 
+				             		removePreset={this.handleRemovePreset}
+				              	presetCardsList={presetCardsList}
+				           		/>
+				            );
+			          	}
+			          )
+			        }
+
+			        <div className="preset preset-add">
+			        	<input type="text" id="newPresetName" /><button className="button-action add"> + </button>
+			        </div>
+		        </div>
 			</div> 
 		);
 	}
