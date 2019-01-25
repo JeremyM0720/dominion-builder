@@ -24,7 +24,7 @@ class Preset extends React.Component {
 		return(
 			<div className="preset">
 			    <span className="preset-name">
-			    	{this.props.presetName}
+			    	{this.props.name}
 			    </span> 
 
 			    <Action 
@@ -38,28 +38,49 @@ class Preset extends React.Component {
 
 class App extends React.Component {
 	state = {
-		initialPresets: [
-			{
-				presetName: 'Grand Scheme',
-				id: 1
-			},
-			{
-				presetName: 'Deconstruction',
-				id: 2
-			},
-			{
-				presetName: 'Give and Take',
-				id: 3
-			},
-		]
+			"presets": [
+	    {
+	      "id": 1,
+	      "name": "Grand Scheme",
+	      "cards": [1, 2]
+	    },
+	    {
+	      "id": 2,
+	      "name": "Deconstrution",
+	      "cards": [2, 3]
+	    },
+	    {
+	      "id": 3,
+	      "name": "Give and Take",
+	      "cards": [1, 3]
+	    }
+	  ],
+	  "cards": [
+	    {
+	      "id": 1,
+	      "name": "Festival",
+	      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+	    },
+	    {
+	      "id": 2,
+	      "name": "Witch",
+	      "description": "Nunc dignissim risus id metus."
+	    },
+	    {
+	      "id": 3,
+	      "name": "Militia",
+	      "description": "Integer vitae libero ac risus egestas placerat."
+	    }
+	  ]
 	}
 
 	handleRemovePreset = (id) => {
     this.setState( prevState => {
       return {
-        initialPresets: prevState.initialPresets.filter( preset => preset.id !== id ),
+        presets: prevState.presets.filter( preset => preset.id !== id ),
       };
     });
+
   }
 
 	render() {
@@ -67,14 +88,14 @@ class App extends React.Component {
 			<div className="preset-builder">
        			<Header 
        				title="Domininion Preset Builder" 
-       				numberOfPresets={this.state.initialPresets.length}
+       				numberOfPresets={this.state.presets.length}
        			/>
        			{
-		          this.state.initialPresets.map( preset =>
+		          this.state.presets.map( preset =>
 		            <Preset 
 		              id={preset.id}
 		              key={preset.id.toString()}
-		              presetName={preset.presetName} 
+		              name={preset.name} 
 		              removePreset={this.handleRemovePreset}
 		            />
 		          )
