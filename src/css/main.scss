@@ -2,10 +2,13 @@
 
 /* ELEMENT STYLES -------------------- */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: #e8e7e7; 
   font-family: sans-serif;
-  box-sizing: border-box;
 }
 
 header {
@@ -160,13 +163,51 @@ svg {
   padding: 0 20px;
   background-color: #e1eafb;
   border-right: 1px solid #cfcfcf;  
-  border-left: 10px solid #7189b9;  
+  border-left: 10px solid #7189b9; 
+  display: flex;
 }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+      flex-basis: 20%;
+      padding: 5px;
+    }
+  }
+
+  .card {
+    position: relative;
+
+    .card-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 0 5px;
+      width: 100%;
+      max-width: 100%; 
+      text-align: center;
+      font-size: .6em;
+      line-height: 2;
+    }
+
+    .card-img {
+      min-height: 180px;
+      background-color: #ececec;
+      height: 100%;
+    }
+
+    .card-description {
+      display: none; /*tmp*/
+    }
+  }
 
   .preset.show {
     .preset-details {
       padding: 20px;  
-      max-height: none;
+      max-height: 450px;
     }
   }
 

@@ -8,22 +8,13 @@ const Header = (props) => (
 	</header>
 );
 
-class Action extends React.Component {
-	render() {
-		return(
-			<div className="actions">
-				<span className="card-count">Cards: {this.props.cards.length}</span>
-				<button className="button-action delete" onClick={ () => this.props.removePreset(this.props.id) }> ✖ </button>
-			</div>
-		);
-	}
-}
-
-class Cards extends React.Component {
-	render() {
-
-	}
-}
+const Card = (props) => (
+	<div className="card">
+		<div className="card-title">{props.cardTitle}</div>
+		<div className="card-description">{props.cardDescription}</div>
+		<div className="card-img"></div>
+	</div>
+);
 
 class Preset extends React.Component {
 	state = {
@@ -47,14 +38,17 @@ class Preset extends React.Component {
 			    	{this.props.name}
 			    </span> 
 
-			    <Action 
-			    	id={this.props.id}
-            removePreset={this.props.removePreset}
-            cards={this.props.cards}
-			    />
+			    <div className="actions">
+						<span className="card-count">Cards: {this.props.presetCardsList.length}</span>
+						<button className="button-action delete" onClick={ () => this.props.removePreset(this.props.id) }> ✖ </button>
+					</div>
 
-			    <div className="preset-details">
-			    	
+			    <div className="preset-details card-container">
+			    	{
+			    		this.props.presetCardsList.map( card => (
+			    			<Card cardTitle={card.name} cardDescription={card.description} />
+			    		))
+			    	}
 			    </div>
 			</div> 
 		);
@@ -67,7 +61,7 @@ class App extends React.Component {
 	    {
 	      "id": 1,
 	      "name": "Grand Scheme",
-	      "cards": [1, 2]
+	      "cards": [1, 2, 3]
 	    },
 	    {
 	      "id": 2,
@@ -77,24 +71,34 @@ class App extends React.Component {
 	    {
 	      "id": 3,
 	      "name": "Give and Take",
-	      "cards": [1, 2, 3]
+	      "cards": [1, 3, 4]
+	    },
+	    {
+	      "id": 4,
+	      "name": "Give and Take",
+	      "cards": [4]
 	    }
 	  ],
 	  "cards": [
 	    {
 	      "id": 1,
 	      "name": "Festival",
-	      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+	      "description": "+2 Actions, +1 Buy, +2 Gold"
 	    },
 	    {
 	      "id": 2,
 	      "name": "Witch",
-	      "description": "Nunc dignissim risus id metus."
+	      "description": "+2 Cards; Each other player gains a Curse."
 	    },
 	    {
 	      "id": 3,
 	      "name": "Militia",
-	      "description": "Integer vitae libero ac risus egestas placerat."
+	      "description": "+2 Gold; Each other player discard down to 3 card in hand."
+	    },
+	    {
+	    	"id": 4,
+	      "name": "Laboratory",
+	      "description": "+2 Cards, +1 Action"
 	    }
 	  ]
 	}
@@ -116,14 +120,23 @@ class App extends React.Component {
        			/>
 
        			{
-		          this.state.presets.map( preset =>
-		            <Preset 
-		              id={preset.id}
-		              key={preset.id.toString()}
-		              name={preset.name} 
-		              cards={preset.cards}
-		              removePreset={this.handleRemovePreset}
-		            />
+		          this.state.presets.map( preset => 
+		          	{
+		          		let presetCardsList = [];
+	          			preset.cards.map( cardNumber => {
+	          				presetCardsList.push(this.state.cards.find(card => card.id === cardNumber));
+	          			});
+
+		          		return (
+			            	<Preset 
+			             		id={preset.id}
+			             		key={preset.id.toString()}
+			             		name={preset.name} 
+			             		removePreset={this.handleRemovePreset}
+			              	presetCardsList={presetCardsList}
+			           		/>
+			            );
+		          	}
 		          )
 		        }  
 			</div> 
