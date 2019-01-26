@@ -47,7 +47,7 @@ class Preset extends React.Component {
 			    <div className="preset-details card-container">
 			    	{
 			    		this.props.presetCardsList.map( card => (
-			    			<Card cardTitle={card.name} cardDescription={card.description} />
+			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} />
 			    		))
 			    	}
 			    </div>
@@ -57,31 +57,65 @@ class Preset extends React.Component {
 }
 
 class App extends React.Component {
-	state = database;
+	state = {
+						database,
+						newPresetName: null
+					};
 
 	handleRemovePreset = id => {
     this.setState( prevState => {
       return {
-        presets: prevState.presets.filter( preset => preset.id !== id ),
+      	database: {
+      		presets: prevState.database.presets.filter( preset => preset.id !== id ),
+      		cards: prevState.database.cards //tmp; can't figure out atm
+      	}
       };
     });
   }
+
+  handleNewPresetValue = name => { //tmp
+  	this.setState( prevstate => {
+  		return {
+  			newPresetName: name
+  		}
+  	});
+  }
+
+  /* Incomplete
+  handleAddPreset = name => {
+  	//not sure unique id atm, paalis na kasi ako D: kakapusin sa time
+  	this.setState( prevState => {
+      return {
+      	database: {
+      		presets: prevState.database.presets.push({
+      			id: Math.floor((Math.random() * 1000) + 1),  
+			  		name: 'test',
+			  		cards: []
+      		}),
+      		cards: prevState.database.cards //tmp; can't figure out atm
+      	}
+      };
+    });
+
+    console.log(this.state.database);
+  }
+  */
 
 	render() {
 		return (
 			<div className="preset-builder">
        			<Header 
        				title="Dominion Preset Builder" 
-       				numberOfPresets={this.state.presets.length}
+       				numberOfPresets={this.state.database.presets.length}
        			/>
 
        			<div className="preset-list">
 	       			{
-			          this.state.presets.map( preset => 
+			          this.state.database.presets.map( preset => 
 			          	{
 			          		let presetCardsList = [];
 		          			preset.cards.map( cardNumber => {
-		          				presetCardsList.push(this.state.cards.find(card => card.id === cardNumber));
+		          				presetCardsList.push(this.state.database.cards.find(card => card.id === cardNumber));
 		          			});
 
 			          		return (
@@ -98,7 +132,7 @@ class App extends React.Component {
 			        }
 
 			        <div className="preset preset-add">
-			        	<input type="text" id="newPresetName" /><button className="button-action add"> + </button>
+			        	<input type="text" id="newPresetName" onChange={e => this.handleNewPresetValue(e.target.value)}/><button className="button-action add" onClick={this.handleAddPreset}> + </button>
 			        </div>
 		        </div>
 			</div> 
