@@ -1,15 +1,16 @@
 import React from 'react';
 import database from './data';
 import Header from './Header';
-import Card from './Card';
 import Preset from './Preset';
 
 class App extends React.Component {
 	state = {
 						database,
-						newPresetName: null
+						newPresetName: null,
+						selectedPreset: null
 					};
 
+	//Methods for Preset
 	handleRemovePreset = id => {
     this.setState( prevState => {
       return {
@@ -22,15 +23,23 @@ class App extends React.Component {
   }
 
   handleNewPresetValue = name => { //tmp
-  	this.setState( prevstate => {
-  		return {
-  			newPresetName: name
-  		}
+  	this.setState({
+  		newPresetName: name
+  	});
+  }
+
+  handleSelectPreset = id => {
+  	if(this.state.database.presets.find( preset => preset.id === id && preset.cards.length < 10)) {
+  		return false;
+  	}
+
+  	this.setState({
+  		selectedPreset: id
   	});
   }
 
   handleAddPreset = name => {
-  	let newPreset = {
+  	const newPreset = {
 							  			id: Math.floor((Math.random() * 10000) + 1),  
 								  		name: name,
 								  		cards: []
@@ -49,6 +58,7 @@ class App extends React.Component {
     });
   }
 
+  //Methods for Cards
   handleDeleteCard = (presetId, cardId) => {
   	this.setState( prevState => {
   		return {
@@ -78,7 +88,7 @@ class App extends React.Component {
 	       			{
 			          this.state.database.presets.map( preset => 
 			          	{
-			          		let presetCardsList = [];
+			          		const presetCardsList = [];
 		          			preset.cards.map( cardNumber => {
 		          				presetCardsList.push(this.state.database.cards.find(card => card.id === cardNumber));
 		          			});
@@ -88,6 +98,8 @@ class App extends React.Component {
 				             		id={preset.id}
 				             		key={preset.id.toString()}
 				             		name={preset.name} 
+				             		selectedPreset={this.state.selectedPreset}
+				             		selectPreset={this.handleSelectPreset}
 				             		removePreset={this.handleRemovePreset}
 				             		deleteCard={this.handleDeleteCard}
 				              	presetCardsList={presetCardsList}
