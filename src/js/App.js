@@ -1,65 +1,8 @@
 import React from 'react';
 import database from './data';
-
-const Header = (props) => (
-	<header>
-		<h1>{props.title}</h1>
-		<p className="stats">Presets: {props.numberOfPresets}</p>
-	</header>
-);
-
-const Card = (props) => { 
-	const deleteButton = (props.isList === true) ? <button className="card-delete" onClick={ () => props.deleteCard(props.presetId, props.cardId) }> ✖ </button>: '';
-
-	return (
-		<div className="card">
-			<div className="card-title">{props.cardTitle}</div>
-			<div className="card-description">{props.cardDescription}</div>
-			<div className="card-img"></div>
-			{deleteButton}
-		</div>
-	);
-}
-
-class Preset extends React.Component {
-	state = {
-		isShown: false,
-	}
-
-	toggleAccordion = () => {
-		this.setState( prevState => {
-			return {
-				isShown: !prevState.isShown
-			};
-		});
-	}
-
-	render() {
-		const show = this.state.isShown ? 'show' : '';
-
-		return(
-			<div className={`preset ${show}`}>
-			    <span className="preset-name" onClick={this.toggleAccordion}>
-			    	{this.props.name}
-			    </span> 
-
-			    <div className="actions">
-						<span className="card-count">Cards: {this.props.presetCardsList.length}</span>
-						<button className="button-action delete" onClick={ () => this.props.removePreset(this.props.id) }> ✖ </button>
-					</div>
-
-			    <div className="preset-details card-container">
-			    	{
-			    		this.props.presetCardsList.map( card => (
-			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} isList={true} presetId={this.props.id} cardId={card.id} deleteCard={this.props.deleteCard}/>
-			    		))
-			    	}
-			    	<div className="card-add-container"><button className="card-add"> + </button></div>
-			    </div>
-			</div> 
-		);
-	}
-}
+import Header from './Header';
+import Card from './Card';
+import Preset from './Preset';
 
 class App extends React.Component {
 	state = {
