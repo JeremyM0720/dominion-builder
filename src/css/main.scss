@@ -24,7 +24,7 @@ header {
 header h1 {
   flex-grow: 1;
   font-size: 1.5em;
-  letter-spacing: 2px;
+  letter-spacing: $letter-spacing;
   font-weight: normal;
   text-transform: none;
   text-decoration: underline;
@@ -45,22 +45,22 @@ input[type=text] {
   margin: 15px 0 15px 15px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #28a745;
+  background-color: $success;
   border-style: none;
   text-shadow: none;
-  letter-spacing: 2px;
+  letter-spacing: $letter-spacing;
   outline: none;
   transition: .4s;
 }
 
 input[type=text]::-webkit-input-placeholder{
   color: #fff;
-  letter-spacing: 2px;
+  letter-spacing: $letter-spacing;
 }
 
 input[type=text]:hover,
 input[type=text]:focus{
-  background-color: #28a745;
+  background-color: $success;
   color: #fff;
 }
 
@@ -73,7 +73,7 @@ input[type=submit] {
   border-radius: 5px;
   border: none;
   color: #fff;
-  letter-spacing: 2px;
+  letter-spacing: $letter-spacing;
   font-weight: bold;
   text-shadow: none;
   text-transform: uppercase;
@@ -119,25 +119,30 @@ svg {
 .preset {
   display: flex;
   font-size: 1.2em;
-  border-bottom: solid 2px #EEEEEE;
-  letter-spacing: 2px;
+  border-top: solid 1px #EEE;
+  border-bottom: solid 1px #EEE;
+  letter-spacing: $letter-spacing;
   flex-flow: row wrap;
-}
 
-  .preset:last-of-type {
+  &.selected .preset-name {
+    border-color: $success;
+    background-color: $success;
+    color: #fff;
+  }
+  
+  &:last-of-type {
     border-bottom-color: #D4CAFF;
   }
+}
 
-  .preset-name:hover .remove-preset {
-    visibility: visible;
-  }
+
 
   .preset-add {
     padding: 0;
 
     .add {
       margin: 15px;
-      background-color: #28a745;
+      background-color: $success;
       color: #fff;
     }
   }
@@ -150,7 +155,7 @@ svg {
   .preset-name {
     flex-grow: 1;
     line-height: 3.5em;
-    padding-left: 10px;
+    padding-left: 15px;
     cursor: pointer;
   }
 
@@ -159,7 +164,7 @@ svg {
     border: none;
     outline: none;
     visibility: hidden;
-    color: #dc3545;
+    color: $danger;
     cursor: pointer;
     margin: 0 10px 0 0;
     padding: 0;
@@ -192,7 +197,7 @@ svg {
       .card-add {
         height: 100%;
         width: 100%;
-        background-color: #28a745;
+        background-color: $success;
         font-size: 3em;
         font-weight: bold;
         color: #fff;
@@ -251,7 +256,7 @@ svg {
   .stats td:first-child {
     text-align: right;
     font-weight: normal;
-    letter-spacing: 2px;
+    letter-spacing: $letter-spacing;
     font-size: .7em;
   }
 
@@ -261,7 +266,7 @@ svg {
 
 .actions {
   display: flex;
-  width: 170px;
+  width: 250px;
   border: 1px solid #c5c5c5;
 }
 
@@ -274,6 +279,10 @@ svg {
     display: block;
     padding: 20px;
     outline: none;
+
+    &:last-child {
+      border-left: 1px solid #bbb;
+    }
   }
 
   .button-action.button-full {
@@ -285,11 +294,11 @@ svg {
   }
 
   .delete:hover {
-    background-color: #dc3545;
+    background-color: $danger;
   }
 
   .add:hover {
-    background-color: #28a745;
+    background-color: $success;
   }
 
   .card-count {
@@ -300,4 +309,10 @@ svg {
     line-height: 1em;
     padding: 25px 10px;
     align-self: center;
+
+    &.card-count-complete {
+      color: $success;
+      text-decoration: underline;
+      font-weight: bold;
+    }
   }
