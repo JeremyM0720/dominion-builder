@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import database from './data'
+import database from './data';
 
 const Header = (props) => (
 	<header>
@@ -9,13 +8,18 @@ const Header = (props) => (
 	</header>
 );
 
-const Card = (props) => (
-	<div className="card">
-		<div className="card-title">{props.cardTitle}</div>
-		<div className="card-description">{props.cardDescription}</div>
-		<div className="card-img"></div>
-	</div>
-);
+const Card = (props) => { 
+	const deleteButton = (props.isList === true) ? <button className="card-delete" onClick={ () => props.deleteCard(props.presetId, props.cardId) }> ✖ </button>: '';
+
+	return (
+		<div className="card">
+			<div className="card-title">{props.cardTitle}</div>
+			<div className="card-description">{props.cardDescription}</div>
+			<div className="card-img"></div>
+			{deleteButton}
+		</div>
+	);
+}
 
 class Preset extends React.Component {
 	state = {
@@ -47,9 +51,10 @@ class Preset extends React.Component {
 			    <div className="preset-details card-container">
 			    	{
 			    		this.props.presetCardsList.map( card => (
-			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} />
+			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} isList={true} presetId={this.props.id} cardId={card.id} deleteCard={this.props.deleteCard}/>
 			    		))
 			    	}
+			    	<div className="card-add-container"><button className="card-add"> + </button></div>
 			    </div>
 			</div> 
 		);
@@ -81,25 +86,42 @@ class App extends React.Component {
   	});
   }
 
-  /* Incomplete
   handleAddPreset = name => {
-  	//not sure unique id atm, paalis na kasi ako D: kakapusin sa time
+  	let newPreset = {
+							  			id: Math.floor((Math.random() * 10000) + 1),  
+								  		name: name,
+								  		cards: []
+							  		};
   	this.setState( prevState => {
       return {
       	database: {
-      		presets: prevState.database.presets.push({
-      			id: Math.floor((Math.random() * 1000) + 1),  
-			  		name: 'test',
-			  		cards: []
-      		}),
+      		presets: prevState.database.presets.concat(newPreset),
       		cards: prevState.database.cards //tmp; can't figure out atm
       	}
       };
     });
 
-    console.log(this.state.database);
+    this.setState({
+    	newPresetName: null
+    });
   }
-  */
+
+  handleDeleteCard = (presetId, cardId) => {
+  	this.setState( prevState => {
+  		return {
+  			database: {
+  				presets: prevState.database.presets.filter( preset => {
+  					if (preset.id === presetId) {
+  						preset.cards = preset.cards.filter( card => card !== cardId);
+  					}
+  					
+  					return true;
+  				}),
+  				cards: prevState.database.cards
+  			}
+  		};
+  	});
+  }
 
 	render() {
 		return (
@@ -124,6 +146,7 @@ class App extends React.Component {
 				             		key={preset.id.toString()}
 				             		name={preset.name} 
 				             		removePreset={this.handleRemovePreset}
+				             		deleteCard={this.handleDeleteCard}
 				              	presetCardsList={presetCardsList}
 				           		/>
 				            );
@@ -132,7 +155,7 @@ class App extends React.Component {
 			        }
 
 			        <div className="preset preset-add">
-			        	<input type="text" id="newPresetName" onChange={e => this.handleNewPresetValue(e.target.value)}/><button className="button-action add" onClick={this.handleAddPreset}> + </button>
+			        	<input type="text" id="newPresetName" onChange={e => this.handleNewPresetValue(e.target.value)}/><button className="button-action add" onClick={ () => this.handleAddPreset(this.state.newPresetName) }> + </button>
 			        </div>
 		        </div>
 			</div> 

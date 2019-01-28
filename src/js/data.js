@@ -13,7 +13,7 @@ const database = {
     {
       "id": 3,
       "name": "Give and Take",
-      "cards": [1, 3, 4]
+      "cards": [1, 2, 3, 4]
     },
     {
       "id": 4,

@@ -77,18 +77,17 @@ input[type=submit] {
   font-weight: bold;
   text-shadow: none;
   text-transform: uppercase;
-  cursor: pointer;
 }
 
 button, 
 input[type=submit] {
   outline: none;
   transition: background-color 0.2s ease,
-              color 0.2s ease;
+  color 0.2s ease;
+  cursor: pointer;
 }
 
 /* ICONS */
-
 svg {
   width: 28px;
   height: 19px;
@@ -184,9 +183,20 @@ svg {
     display: flex;
     flex-wrap: wrap;
 
-    .card {
+    .card,
+    .card-add-container {
       flex-basis: 20%;
       padding: 5px;
+      min-height: 190px;
+
+      .card-add {
+        height: 100%;
+        width: 100%;
+        background-color: #28a745;
+        font-size: 3em;
+        font-weight: bold;
+        color: #fff;
+      }
     }
   }
 
@@ -214,6 +224,14 @@ svg {
 
     .card-description {
       display: none; /*tmp*/
+    }
+
+    .card-delete {
+      top: 10px;
+      right: 10px;
+      position: absolute;
+      color: #FF0006;
+      border: none;
     }
   }
 
@@ -255,7 +273,6 @@ svg {
     background-color: #DCDCDC;
     display: block;
     padding: 20px;
-    cursor: pointer;
     outline: none;
   }
 
