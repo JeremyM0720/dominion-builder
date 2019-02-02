@@ -3,8 +3,8 @@ import Card from './Card';
 
 class Actions extends React.Component {
 	render() {
-		const cardCount = (this.props.cardCount < 10) ? `Cards: ${this.props.cardCount}/10` : 'Complete';
-		const cardCountColor = (this.props.cardCount < 10) ? '' : 'card-count-complete';
+		const cardCount = this.props.cardCount < 10 ? `Cards: ${this.props.cardCount}/10` : 'Complete';
+		const cardCountColor = this.props.cardCount < 10 ? '' : 'card-count-complete';
 
 		return (
 			<div className="actions">
