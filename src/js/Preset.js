@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import Card from './Card';
+import Actions from './Actions';
 
-class Actions extends Component {
-	render() {
-		const cardCount = this.props.cardCount < 10 ? `Cards: ${this.props.cardCount}/10` : 'Complete';
-		const cardCountColor = this.props.cardCount < 10 ? '' : 'card-count-complete';
-
-		return (
-			<div className="actions">
-				<span className={`card-count ${cardCountColor}`}>{cardCount}</span>
-				<button className="button-action add" onClick={ () => this.props.selectPreset(this.props.id)}> ✓ </button>
-				<button className="button-action delete" onClick={() => this.props.removePreset(this.props.id)}> ✖ </button>
-			</div>
-		);
-	}
-}
-
-class Preset extends React.Component {
+class Preset extends Component {
 	state = {
 		isShown: false,
 	}
@@ -45,7 +31,7 @@ class Preset extends React.Component {
 			    <div className="preset-details card-container">
 			    	{
 			    		this.props.presetCardsList.map( card => (
-			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} isList={true} presetId={this.props.id} cardId={card.id} deleteCard={this.props.deleteCard}/>
+			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} presetId={this.props.id} cardId={card.id} deleteCard={this.props.deleteCard}/>
 			    		))
 			    	}
 

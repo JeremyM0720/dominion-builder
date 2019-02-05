@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Card = (props) => { 
-	const deleteButton = (props.isList === true) ? <button className="card-delete" onClick={ () => props.deleteCard(props.presetId, props.cardId) }> ✖ </button>: '';
+class Card extends Component { 
 
-	return (
-		<div className="card">
-			<div className="card-title">{props.cardTitle}</div>
-			<div className="card-description">{props.cardDescription}</div>
-			<div className="card-img"></div>
-			{deleteButton}
-		</div>
-	);
+	handleDeleteCard = () => {
+		this.props.deleteCard(this.props.presetId, this.props.cardId);
+	}
+
+	render() {
+		return (
+			<div className="card">
+				<div className="card-title">{ this.props.cardTitle }</div>
+				<div className="card-description">{ this.props.cardDescription }</div>
+				<div className="card-img"></div>
+				<button className="card-delete" onClick={ this.handleDeleteCard }> ✖ </button>
+			</div>
+		);
+	}
 }
 
 export default Card;
