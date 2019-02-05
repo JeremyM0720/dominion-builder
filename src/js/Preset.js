@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Card from './Card';
 
-class Actions extends React.Component {
+class Actions extends Component {
 	render() {
 		const cardCount = this.props.cardCount < 10 ? `Cards: ${this.props.cardCount}/10` : 'Complete';
 		const cardCountColor = this.props.cardCount < 10 ? '' : 'card-count-complete';

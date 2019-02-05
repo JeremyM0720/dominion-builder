@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import database from './data';
 import Header from './Header';
 import Preset from './Preset';
 import AddPreset from './AddPreset';
 
-class App extends React.Component {
+class App extends Component {
 	state = {
 						database,
 						selectedPreset: null
