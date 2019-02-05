@@ -22,7 +22,7 @@ const database = {
     },
     {
       "id": 5,
-      "name": "Give and Take",
+      "name": "Militia Madness",
       "cards": [7, 8, 3, 4]
     },
   ],
