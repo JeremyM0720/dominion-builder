@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Card from './Card';
 import Actions from './Actions';
 
-class Preset extends Component {
+class Preset extends PureComponent {
 	state = {
 		isShown: false,
 	}
@@ -16,30 +17,48 @@ class Preset extends Component {
 	}
 
 	render() {
-		const show = this.state.isShown ? 'show' : '';
-		const selected = this.props.selectedPreset === this.props.id ? 'selected' : '';
-		const addCardBtn = this.props.presetCardsList.length < 10 ? <div className="card-add-container"><button className="card-add"> + </button></div> : '';
+		const {
+			deleteCard,
+			id,
+			name,
+			presetCardsList,
+			removePreset,
+			selectedPreset,
+			selectPreset
+		} = this.props;
 
 		return(
-			<div className={`preset ${show} ${selected}`}>
+			<div className={"preset " + (selectedPreset ? 'selected' : '') + (this.state.isShown ? 'show' : '')}>
 			    <span className="preset-name" onClick={this.toggleAccordion}>
-			    	{this.props.name}
+			    	{name}
 			    </span> 
 
-			    <Actions cardCount={this.props.presetCardsList.length} selectPreset={this.props.selectPreset} removePreset={this.props.removePreset} id={this.props.id} />
+			    <Actions cardCount={presetCardsList.length} selectPreset={selectPreset} removePreset={removePreset} id={id} />
 
 			    <div className="preset-details card-container">
 			    	{
-			    		this.props.presetCardsList.map( card => (
-			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} presetId={this.props.id} cardId={card.id} deleteCard={this.props.deleteCard}/>
+			    		presetCardsList.map( card => (
+			    			<Card cardTitle={card.name} cardDescription={card.description} key={card.id.toString()} presetId={id} cardId={card.id} deleteCard={deleteCard}/>
 			    		))
 			    	}
 
-			    	{addCardBtn}
+			    	{
+			    		(presetCardsList.length < 10) ? <div className="card-add-container"><button className="card-add"> + </button></div> : ''
+			    	}
 			    </div>
 			</div> 
 		);
 	}
 }
+
+Preset.proptypes = {
+	deleteCard: PropTypes.func,
+	id: PropTypes.number,
+	name: PropTypes.string,
+	presetCardsList: PropTypes.array,
+	removePreset: PropTypes.func,
+	selectedPreset: PropTypes.number,
+	selectPreset: PropTypes.func,
+};
 
 export default Preset;

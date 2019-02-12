@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Preset from './Preset';
 
 class PresetList extends Component {
@@ -16,14 +17,20 @@ class PresetList extends Component {
 	}
 
 	render() {
+		const {
+			database,
+			removePreset,
+			deleteCard
+		} = this.props;
+
 		return (
 			<div className="preset-list">
    			{
-          this.props.database.presets.map( preset => 
+          database.presets.map( preset => 
           	{
-          		const presetCardsList = [];
+          		let presetCardsList = [];
         			preset.cards.map( cardNumber => {
-        				presetCardsList.push(this.props.database.cards.find(card => card.id === cardNumber));
+        				presetCardsList.push(database.cards.find(card => card.id === cardNumber));
         			});
 
           		return (
@@ -31,10 +38,10 @@ class PresetList extends Component {
 	             		id={preset.id}
 	             		key={preset.id.toString()}
 	             		name={preset.name} 
-	             		selectedPreset={this.state.selectedPreset}
+	             		selectedPreset={(this.state.selectedPreset === preset.id) ? true : false}
 	             		selectPreset={this.selectPreset}
-	             		removePreset={this.props.removePreset}
-	             		deleteCard={this.props.deleteCard}
+	             		removePreset={removePreset}
+	             		deleteCard={deleteCard}
 	              	presetCardsList={presetCardsList}
 	           		/>
 	            );
@@ -44,6 +51,12 @@ class PresetList extends Component {
       </div>
 		);
 	}
+}
+
+PresetList.proptypes = {
+	database: PropTypes.array,
+	removePreset: PropTypes.func,
+	deleteCard: PropTypes.func
 }
 
 export default PresetList;
