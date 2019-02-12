@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class AddPreset extends Component {
 
 	state = {
-		newPresetName: null,
+		newPresetName: '',
 	}
 
-	handleNewPresetValue = newPresetName => { //tmp
+	handleNewPresetValue = (e) => { //tmp
   	this.setState({
-  		newPresetName
+  		newPresetName: e.target.value
   	});
   }
 
@@ -22,8 +22,8 @@ class AddPreset extends Component {
 
 	render() {
 		return (
-			<form className="preset preset-add" onSubmit={ this.handleSubmit }>
-      	<input type="text" id="newPresetName" onChange={ e => this.handleNewPresetValue(e.target.value) }/>
+			<form className="preset preset-add" onSubmit={this.handleSubmit}>
+      	<input type="text" id="newPresetName" value={this.state.newPresetName} onChange={this.handleNewPresetValue}/>
       	<button className="button-action add"> + </button>
       </form>
 		);
