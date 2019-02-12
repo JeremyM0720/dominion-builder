@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --mode development --open --hot --history-api-fallback"
   },
   "dependencies": {
+    "prop-types": "^15.7.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   },
